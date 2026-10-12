@@ -353,10 +353,14 @@
   }
 
   // Lưu kết quả quiz vào dữ liệu chính của Study RPG.
+ 
+  // Lưu kết quả quiz, cộng thưởng và đồng bộ nhiệm vụ Study RPG.
   function saveCompletedQuiz() {
     const output = $("aiQuizOutput");
-
     if (!output || !$("aiQuizAgain")) return;
+
+    // Ngăn một lượt nộp bài bị cộng thưởng nhiều lần.
+    if (output.dataset.rewarded === "true") return;
 
     const questions = [...output.querySelectorAll(".aiquiz-question")];
     if (!questions.length) return;
@@ -408,26 +412,41 @@
     try {
       const data = readApp();
 
-      data.quizHistory = Array.isArray(data.quizHistory) ? data.quizHistory : [];
+      data.quizHistory = Array.isArray(data.quizHistory)
+        ? data.quizHistory : [];
       data.history = Array.isArray(data.history) ? data.history : [];
 
+      // Kiểm tra dữ liệu trước khi lưu để tránh ghi trùng kết quả.
       if (data.quizHistory.some(q => q && q.id === result.id)) return;
 
+      // 1. Lưu lịch sử quiz.
       data.quizHistory.unshift(result);
       data.quizHistory = data.quizHistory.slice(0, 300);
 
+      // 2. Cộng 10 XP và 10 S-Coins cho mỗi quiz hoàn thành.
+      data.xp = Math.max(0, Number(data.xp) || 0) + 10;
+      data.coins = Math.max(0, Number(data.coins) || 0) + 10;
+      data.level = Math.max(1, Number(data.level) || 1);
+
+      // Tự động lên cấp nếu đủ XP.
+      while (data.xp >= data.level * 100) {
+        data.xp -= data.level * 100;
+        data.level++;
+      }
+
+      // 3. Ghi vào hoạt động gần đây và lịch sử thống kê.
       data.history.unshift({
         date: result.date,
         type: "Quiz",
         minutes: 0,
-        reward: 0,
+        reward: 10,
         score: result.score,
         subject: result.subject,
         topic: result.topic
       });
-
       data.history = data.history.slice(0, 150);
 
+      // 4. Đồng bộ nhiệm vụ quiz trong ngày.
       data.daily = data.daily && typeof data.daily === "object"
         ? data.daily
         : { date: todayKey(), done: [] };
@@ -436,22 +455,34 @@
         data.daily = { date: todayKey(), done: [] };
       }
 
-      data.daily.done = Array.isArray(data.daily.done) ? data.daily.done : [];
+      data.daily.done = Array.isArray(data.daily.done)
+        ? data.daily.done : [];
 
-      // Hoàn thành nhiệm vụ quiz và thưởng tối đa một lần mỗi ngày.
       if (!data.daily.done.includes("quiz")) {
         data.daily.done.push("quiz");
-        data.coins = Math.max(0, Number(data.coins) || 0) + 25;
       }
+
+      // Ghi lại trạng thái đã thưởng trước khi lưu.
+      output.dataset.rewarded = "true";
 
       writeApp(data);
 
       const toast = $("toast");
-
       if (toast) {
         toast.textContent =
-          "✓ Đã lưu kết quả quiz và cập nhật nhiệm vụ học tập.";
+          `🎉 Quiz hoàn thành! +10 XP, +10 S-Coins · Điểm ${result.score}/100`;
         toast.classList.add("show");
+        setTimeout(() => toast.classList.remove("show"), 3500);
+      }
+
+      // Làm mới giao diện để cập nhật Level, XP, xu và nhiệm vụ.
+      setTimeout(() => location.reload(), 500);
+    } catch (error) {
+      console.error("Không thể lưu kết quả quiz:", error);
+      alert("Không lưu được kết quả quiz. Hãy kiểm tra bộ nhớ trình duyệt.");
+    }
+  }
+
 
         setTimeout(() => toast.classList.remove("show"), 3500);
       }
