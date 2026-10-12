@@ -100,3 +100,191 @@ body.mac-desktop:before{background:radial-gradient(ellipse at 12% 90%,rgba(39,25
 .aiquiz-note{line-height:1.6}.aiquiz-actions{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0}.aiquiz-actions .secondary-btn,.aiquiz-actions .quiet-btn{font-size:11px;padding:8px 11px}
 #aiQuizKeyStatus{display:block;margin:0 0 8px;color:#b8ff3b}
 @media(prefers-reduced-motion:no-preference){.panel:hover,.stat-card:hover{border-color:rgba(184,255,59,.24);transition:border-color .18s ease}}
+
+
+
+/* ===== STUDY RPG NEON LEADERBOARD ===== */
+#page-leaderboard {
+  gap: 22px;
+}
+
+.leaderboard-heading,
+.leaderboard-panel-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.leaderboard-heading h1 {
+  margin: 8px 0;
+  font-size: clamp(25px, 4vw, 36px);
+}
+
+.leaderboard-heading p,
+.leaderboard-panel-heading p {
+  color: var(--text-muted, #a1a1b5);
+  margin: 6px 0;
+}
+
+.leaderboard-eyebrow {
+  color: var(--accent, #b8ff3b);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 2px;
+}
+
+.leaderboard-league {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 20px;
+  border: 1px solid color-mix(in srgb, var(--accent, #b8ff3b) 35%, transparent);
+  border-radius: 18px;
+  box-shadow: 0 0 22px color-mix(in srgb, var(--accent, #b8ff3b) 9%, transparent);
+}
+
+.leaderboard-league-icon {
+  font-size: 30px;
+}
+
+.leaderboard-league small,
+.leaderboard-score small {
+  display: block;
+  color: var(--text-muted, #a1a1b5);
+  font-size: 12px;
+}
+
+.leaderboard-league h2 {
+  margin: 5px 0 0;
+}
+
+.leaderboard-period,
+.leaderboard-live {
+  margin-left: auto;
+  color: var(--accent, #b8ff3b);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+
+.leaderboard-panel {
+  padding: 22px;
+  border-radius: 20px;
+}
+
+.leaderboard-panel-heading {
+  margin-bottom: 18px;
+}
+
+.leaderboard-panel-heading h2 {
+  margin: 0;
+  font-size: 19px;
+}
+
+#leaderboardStatus {
+  color: var(--text-muted, #a1a1b5);
+  font-size: 13px;
+  margin: 12px 0;
+}
+
+#leaderboardList {
+  display: grid;
+  gap: 10px;
+}
+
+.leaderboard-row {
+  display: grid;
+  grid-template-columns: 42px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 12px;
+  padding: 14px;
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: 15px;
+  background: rgba(255,255,255,.025);
+  transition: border-color .2s, transform .2s, background .2s;
+}
+
+.leaderboard-row:hover {
+  transform: translateY(-2px);
+  border-color: color-mix(in srgb, var(--accent, #b8ff3b) 45%, transparent);
+  background: rgba(255,255,255,.05);
+}
+
+.leaderboard-row.me {
+  border-color: var(--accent, #b8ff3b);
+  box-shadow: 0 0 18px color-mix(in srgb, var(--accent, #b8ff3b) 12%, transparent);
+}
+
+.leaderboard-place {
+  font-size: 20px;
+  font-weight: 850;
+  text-align: center;
+}
+
+.leaderboard-person {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+}
+
+.leaderboard-avatar {
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  flex-shrink: 0;
+  border-radius: 14px;
+  background: rgba(255,255,255,.07);
+  font-size: 23px;
+}
+
+.leaderboard-name {
+  overflow-wrap: anywhere;
+  font-weight: 750;
+}
+
+.leaderboard-meta {
+  margin-top: 5px;
+  color: var(--text-muted, #a1a1b5);
+  font-size: 12px;
+}
+
+.leaderboard-score {
+  text-align: right;
+  color: var(--accent, #b8ff3b);
+  font-size: 17px;
+  font-weight: 850;
+  white-space: nowrap;
+}
+
+.leaderboard-score small {
+  margin-top: 4px;
+  font-weight: 400;
+}
+
+@media (max-width: 520px) {
+  .leaderboard-panel {
+    padding: 14px;
+  }
+
+  .leaderboard-row {
+    grid-template-columns: 30px minmax(0, 1fr);
+    gap: 9px;
+    padding: 11px;
+  }
+
+  .leaderboard-score {
+    grid-column: 2;
+    text-align: left;
+    font-size: 14px;
+  }
+
+  .leaderboard-score small {
+    display: inline;
+    margin-left: 6px;
+  }
+}
+
