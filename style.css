@@ -288,3 +288,10 @@ body.mac-desktop:before{background:radial-gradient(ellipse at 12% 90%,rgba(39,25
   }
 }
 
+.app-logo {
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+  flex-shrink: 0;
+  border-radius: 8px;
+}
