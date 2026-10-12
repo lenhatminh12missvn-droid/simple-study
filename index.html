@@ -96,6 +96,60 @@
       </div>
     </section>
 
+
+
+
+
+
+    
+    
+<section class="page" id="page-leaderboard">
+  <div class="leaderboard-heading">
+    <div>
+      <span class="leaderboard-eyebrow">STUDY RPG · COMPETITIVE</span>
+      <h1>🏆 Bảng xếp hạng</h1>
+      <p>Thi đua bằng thời gian học tập trong 7 ngày gần nhất.</p>
+    </div>
+    <button class="secondary-btn" id="refreshLeaderboard" type="button">
+      ↻ Làm mới
+    </button>
+  </div>
+
+  <div class="leaderboard-league glass">
+    <div class="leaderboard-league-icon">⚡</div>
+    <div>
+      <small>Giải đấu của bạn</small>
+      <h2 id="myLeague">Đang tải...</h2>
+    </div>
+    <div class="leaderboard-period">7 NGÀY</div>
+  </div>
+
+  <div class="leaderboard-panel glass">
+    <div class="leaderboard-panel-heading">
+      <div>
+        <h2>Những nhà thám hiểm hàng đầu</h2>
+        <p>XP được tính từ các phiên học đã đồng bộ.</p>
+      </div>
+      <span class="leaderboard-live">● FIREBASE</span>
+    </div>
+
+    <p id="leaderboardStatus" role="status" aria-live="polite">
+      Đang tải bảng xếp hạng...
+    </p>
+
+    <div id="leaderboardList" aria-live="polite">
+      <div class="empty-state">Đang tải dữ liệu...</div>
+    </div>
+  </div>
+</section>
+
+
+
+
+
+    
+
+    
     <section class="page" id="page-leaderboard">
       <div class="page-heading"><p class="eyebrow">WEEKLY LEAGUE</p><h1>🏆 Bảng xếp hạng</h1><p class="muted">Thi đua bằng XP học tập trong 7 ngày gần nhất. Chỉ hiển thị tên và tiến độ công khai, không hiển thị email.</p></div>
       <div class="leaderboard-hero panel glass"><div><span class="eyebrow">LEAGUE SEASON</span><h2>🚀 Study League</h2><p class="muted">Học đều mỗi ngày để leo hạng cùng bạn bè.</p></div><div class="league-pill" id="myLeague">Chưa xếp hạng</div></div>
