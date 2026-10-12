@@ -496,11 +496,24 @@
   }
 
   // Theo dõi nút chấm bài của quiz AI.
+
+  // Theo dõi nộp bài và bắt đầu quiz mới.
   function setupQuizTracking() {
     document.addEventListener("click", event => {
-      const button = event.target.closest("#aiQuizSubmit");
+      const target = event.target;
+      if (!(target instanceof Element)) return;
+
+      // Cho phép quiz tiếp theo nhận thưởng bình thường.
+      if (target.closest("#aiQuizAgain")) {
+        const output = $("aiQuizOutput");
+        if (output) output.dataset.rewarded = "false";
+        return;
+      }
+
+      const button = target.closest("#aiQuizSubmit");
       if (!button) return;
 
+      // Chờ giao diện kết quả được render sau khi chấm bài.
       setTimeout(() => {
         if ($("aiQuizAgain")) saveCompletedQuiz();
       }, 0);
